@@ -74,6 +74,7 @@
       <field name="model">bike.rent</field>
       <field name="arch" type="xml">
         <tree  default_order="rent_stop asc">
+          <field name="id" string="rent_ids"/>
           <field name="bike_id"/>
           <field name="partner_id"/>
           <field name="rent_start"/>
