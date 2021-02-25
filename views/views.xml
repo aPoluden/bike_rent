@@ -1,0 +1,138 @@
+<odoo>
+  <data>
+    
+    <!-- partner form ovveride -->
+    <record id="partner_view_form_inherit" model="ir.ui.view" >
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <field name="phone" position="before">
+          <button name="action_view_partner_rent_list" type="object" string="Open rents" />
+        </field>
+      </field>
+    </record>
+
+    <!-- product form ovveride -->
+    <record id="product_view_form_inherit" model="ir.ui.view" >
+      <field name="model">product.product</field>
+      <field name="inherit_id" ref="product.product_normal_form_view"/>
+      <field name="arch" type="xml">
+        <field name="currency_id" position="before">
+            <field name="is_bike"/>
+            <field name="make" attrs="{'invisible':[('is_bike', '=', False)]}"/>
+            <field name="model" attrs="{'invisible':[('is_bike', '=', False)]}"/>
+         </field>
+          <notebook position="inside">
+          <page string="Bike Rent">
+            <field name="bike_rent"/>
+          </page>
+        </notebook>
+      </field>
+    </record>
+
+    <!-- search -->
+    <record model="ir.ui.view" id="bikrent_view_search">
+      <field name="name">Bikerent Search View</field>
+      <field name="model">bike.rent</field>
+      <field name="arch" type="xml">
+        <search string="Search Bike Rent">
+          <field name="partner_id"/><!-- Field that will be automatically searched when Typing in the search box -->
+          <filter name="free_rent" string="Active" domain="[('rent_stop', '>', 'now()')]"/>
+          <filter name="free_rent" string="Free Rent" domain="[('price', '=', '0.00')]"/><!-- Predifined filters -->
+          <group expand="1" string='Group By Partner'>
+            <filter string="Partner" name="partner_id" context="{ 'group_by': 'partner_id' }"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="bikerent_view_form">
+      <field name="name">Bike Rent Form</field>
+      <field name="model">bike.rent</field>
+      <field name="arch" type="xml">
+        <form string="Bike Rent form">
+          <group name="group_top">
+            <group name="group_left">
+              <field name="bike_id" domain="[('is_bike', '=', True)]"/>
+              <field name="partner_id"/>
+              <field name="rent_start"/>
+            </group>
+            <group name="group_right">
+              <field name="rent_stop"/>
+              <field name="price"/>
+              <field name="currency_id"/>
+              <field name="notes"/>
+            </group>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="bike_rent_view_list">
+      <field name="name">Bike Rent List1</field>
+      <field name="model">bike.rent</field>
+      <field name="arch" type="xml">
+        <tree  default_order="rent_stop asc">
+          <field name="bike_id"/>
+          <field name="partner_id"/>
+          <field name="rent_start"/>
+          <field name="rent_stop"/>
+          <field name="number_of_days"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="bikerent_list_action">
+      <field name="name">Bike Rent List</field>
+      <field name="res_model">bike.rent</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="bike_rent_view_list"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="bikerent_pivot_action">
+      <field name="name">Bike Rent Pivot</field>
+      <field name="res_model">bike.rent</field>
+      <field name="view_mode">pivot</field>
+    </record>
+
+    <!-- server action to the one above -->
+    <!-- <record model="ir.actions.server" id="../custom_addons/bike_rent.action_server">
+      <field name="name">../custom_addons/bike_rent server</field>
+      <field name="model_id" ref="model_../custom_addons/bike_rent_../custom_addons/bike_rent"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record> -->
+
+
+    <!-- Top menu item -->
+    <menuitem name="Bike Rent" id="main_bikerent_menu"/> <!-- Selection in top left  -->
+    <!-- menu categories -->
+    <menuitem name="Menu" id="bikerental_menu" parent="main_bikerent_menu"/>
+    
+    <!-- actions -->
+    <menuitem name="Bike rent list" id="bikerent_list" parent="bikerental_menu"
+        action="bikerent_list_action"/>
+
+      <menuitem name="Bike rent pivot" id="bikerent_pivot" parent="bikerental_menu"
+        action="bikerent_pivot_action"/>
+
+    <!-- menu categories -->
+    <!-- <menuitem name="Menu 1" id="../custom_addons/bike_rent.menu_1" parent="../custom_addons/bike_rent.menu_root"/>
+    <menuitem name="Menu 2" id="../custom_addons/bike_rent.menu_2" parent="../custom_addons/bike_rent.menu_root"/> -->
+
+    <!-- actions -->
+    <!-- <menuitem name="List" id="../custom_addons/bike_rent.menu_1_list" parent="../custom_addons/bike_rent.menu_1"
+              action="../custom_addons/bike_rent.action_window"/>
+    <menuitem name="Server to list" id="../custom_addons/bike_rent" parent="../custom_addons/bike_rent.menu_2"
+              action="../custom_addons/bike_rent.action_server"/> -->
+
+  </data>
+</odoo>
