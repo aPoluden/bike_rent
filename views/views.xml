@@ -73,12 +73,12 @@
       <field name="name">Bike Rent List1</field>
       <field name="model">bike.rent</field>
       <field name="arch" type="xml">
-        <tree  default_order="rent_stop asc">
+        <tree  default_order="rent_stop asc" decoration-muted="rent_stop &lt; current_date" decoration-success="rent_stop &gt; current_date">
           <field name="id" string="rent_ids"/>
           <field name="bike_id"/>
           <field name="partner_id"/>
           <field name="rent_start"/>
-          <field name="rent_stop"/>
+          <field name="rent_stop" />
           <field name="number_of_days"/>
         </tree>
       </field>
