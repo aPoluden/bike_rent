@@ -30,6 +30,7 @@
       </field>
     </record>
 
+    
     <!-- search -->
     <record model="ir.ui.view" id="bikrent_view_search">
       <field name="name">Bikerent Search View</field>
@@ -39,7 +40,6 @@
           <field name="partner_id"/><!-- Field that will be automatically searched when Typing in the search box -->
           <filter name="free_rent" string="Active" domain="[('rent_stop', '>', 'now()')]"/>
           <filter name="free_rent" string="Free Rent" domain="[('price', '=', '0.00')]"/><!-- Predifined filters -->
-          <group expand="1" string='Group By Partner'>
             <filter string="Partner" name="partner_id" context="{ 'group_by': 'partner_id' }"/>
           </group>
         </search>
