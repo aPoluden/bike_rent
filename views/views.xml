@@ -55,7 +55,7 @@
         <form string="Bike Rent form">
           <group name="group_top">
             <group name="group_left">
-              <field name="bike_id" domain="[('is_bike', '=', True)]"/>
+              <field name="bike_id" domain="[('is_bike', '=', True)]" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
               <field name="partner_id"/>
               <field name="rent_start"/>
             </group>
