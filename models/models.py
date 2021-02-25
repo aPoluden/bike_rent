@@ -48,9 +48,6 @@ class BikeRent(models.Model):
     _name = 'bike.rent'
     _description = 'BikeRent'
 
-    # bikename = fields.Char(help="Bike name", required=True)
-    # customer_name = fields.Char(help="Customer", requ
-    # model  =ired=True)
     partner_id = fields.Many2one('res.partner')
     bike_id = fields.Many2one('product.product')
     currency_id = fields.Many2one('res.currency', string='Currency')
