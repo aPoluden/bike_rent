@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <!-- Top menu item -->
+    <menuitem name="Bike Rent" id="main_bikerent_menu"/> <!-- Selection in top left  -->
+    <!-- menu categories -->
+    <menuitem name="Menu" id="bikerental_menu" parent="main_bikerent_menu"/>
+    
+    <!-- actions -->
+    <menuitem name="Bike rent list" id="bikerent_list" parent="bikerental_menu"
+        action="bikerent_list_action"/>
+
+    <menuitem name="Bike rent pivot" id="bikerent_pivot" parent="bikerental_menu"
+        action="bikerent_pivot_action"/>
+  </data>
+</odoo>

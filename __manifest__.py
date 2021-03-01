@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Bike Rent",
 
@@ -25,7 +24,11 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/menu_views.xml',
+        'views/bike_rent_views.xml',
+        'views/product_views.xml',
+        'views/res_partner_views.xml',
+        'views/sale_order_views.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode

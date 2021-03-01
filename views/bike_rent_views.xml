@@ -1,0 +1,68 @@
+<odoo>
+  <data>
+    <record  id="bikrent_view_search" model="ir.ui.view">
+      <field name="name">Bikerent Search View</field>
+      <field name="model">bike.rent</field>
+      <field name="arch" type="xml">
+        <search string="Search Bike Rent">
+          <field name="partner_id"/><!-- Field that will be automatically searched when Typing in the search box -->
+          <filter name="active" string="Active" domain="[('rent_stop', '>', 'now()')]"/>
+          <filter name="free_rent" string="Free Rent" domain="[('price', '=', '0.00')]"/><!-- Predifined filters -->
+          <filter name="is_bike" string="Is bike" domain="[('bike_id.is_bike', '=', 'True')]"/>
+          <group expand="1" string='Group By Partner'>
+            <filter string="Partner" name="partner_id" context="{ 'group_by': 'partner_id' }"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="bikerent_view_form" model="ir.ui.view">
+      <field name="model">bike.rent</field>
+      <field name="arch" type="xml">
+        <form string="Bike Rent form">
+          <group name="group_top">
+            <group name="group_left">
+              <field name="bike_id" domain="[('is_bike', '=', True)]" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+              <field name="partner_id"/>
+              <field name="rent_start"/>
+            </group>
+            <group name="group_right">
+              <field name="rent_stop"/>
+              <field name="price"/>
+              <field name="currency_id"/>
+              <field name="notes"/>
+            </group>
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <!-- explicit list view definition -->
+    <record id="bike_rent_view_list" model="ir.ui.view">
+      <field name="model">bike.rent</field>
+      <field name="arch" type="xml">
+        <tree  default_order="rent_stop asc" decoration-muted="rent_stop &lt; current_date" decoration-success="rent_stop &gt; current_date">
+          <field name="id" string="rent_ids"/>
+          <field name="bike_id"/>
+          <field name="partner_id"/>
+          <field name="rent_start"/>
+          <field name="rent_stop" />
+          <field name="number_of_days"/>
+        </tree>
+      </field>
+    </record>
+
+    <record  id="bikerent_list_action" model="ir.actions.act_window">
+      <field name="name">Bike Rent List</field>
+      <field name="res_model">bike.rent</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="bike_rent_view_list"/>
+    </record>
+
+    <record id="bikerent_pivot_action" model="ir.actions.act_window">
+      <field name="name">Bike Rent Pivot</field>
+      <field name="res_model">bike.rent</field>
+      <field name="view_mode">pivot</field>
+    </record>
+  </data>
+</odoo>

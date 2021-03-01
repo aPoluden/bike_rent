@@ -1,6 +1,18 @@
+import datetime as dt
+
 from odoo.tests.common import TransactionCase
 from odoo.exceptions import UserError
-import datetime as dt
+
+
+class TestSaleOrder(TransactionCase):
+
+    def setUp(self, *args, **kwargs):
+        super().setUp(*args, **kwargs)
+        # self.BikeRent = self.env['bike.rent']
+        # self.SaleOrder = self.env['sale.order']
+        # self.SaleOrderLine = self.env['sale.order.line']
+        # sale_order = self.SaleOrder.create()
+        # sale_order_line = self.SaleOrderLine.create()
 
 
 class BikeRentCommon(TransactionCase):
@@ -8,13 +20,6 @@ class BikeRentCommon(TransactionCase):
     def setUp(self, *args, **kwargs):
         result = super().setUp(*args, **kwargs)
         self.BikeRent = self.env['bike.rent']
-        # self.bike_rent_ode = self.BikeRent.create({
-        #     'bikename': 'Foo',
-        #     'customer_name': 'Bar',
-        #     'price': '10.00',
-        #     'rent_start': dt.datetime.now(),
-        #     'rent_stop': dt.datetime.now(),
-        # })
 
     def test_rent_date_compute(self):
         # case when User returns rental same day
